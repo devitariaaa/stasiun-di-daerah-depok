@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Stasiun di Daerah Depok</title>
+	<style>
+	#mapid{
+		height: 800px;
+	}
+	</style>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+	<div id="mapid"></div>
+	<script>
+		var map = L.map('mapid').setView([-6.405031, 106.8173077], 13);
+		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>',
+			maxZoom: 19,
+		}).addTo(map);
+
+		var stasiun = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          106.83177940697908,
+          -6.360428057064823
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          106.83208366501145,
+          -6.3690566272454845
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          106.82164151669491,
+          -6.39112910737245
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          106.81709261164309,
+          -6.404829203631024
+        ],
+        "type": "Point"
+      }
+    }
+  ]
+}
+
+		var geojson = L.geoJSON(stasiun, {
+        onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.nama);
+        }
+		}).addTo(map);
+    
+		L.geoJSON(geojson).bindPopup(function(layer){
+        return layer.feature.properties.nama 
+		}).addTo(map);
+	</script>
+</body>
+</html>
